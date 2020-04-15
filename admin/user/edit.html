@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>首页</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- Google fonts - Popppins for copy-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+    <!-- orion icons-->
+    <link rel="stylesheet" href="../../css/orionicons.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../../css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="../../public/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../../img/favicon.png?3">
+    <!-- Tweaks for older IEs-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script type="text/javascript">
+        if (! localStorage.getItem('admin-token')) {
+            window.location.href = '../login.html';
+        }
+    </script>
+</head>
+<body>
+<header class="header">
+    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">后台管理系统</a>
+        <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+            <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="../../img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#"
+                       onclick="exit()">
+                        退出
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="d-flex align-items-stretch">
+    <div id="sidebar" class="sidebar py-3">
+        <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">主页</div>
+        <ul class="sidebar-menu list-unstyled">
+            <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#user" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>用户</span></a>
+                <div id="user" class="collapse">
+                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                        <li class="sidebar-list-item"><a href="../user/index.html" class="sidebar-link text-muted pl-lg-5">用户列表</a></li>
+                        <li class="sidebar-list-item"><a href="../user/create.html" class="sidebar-link text-muted pl-lg-5">新增用户</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#admin" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>管理员</span></a>
+                <div id="admin" class="collapse">
+                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                        <li class="sidebar-list-item"><a href="../admin/index.html" class="sidebar-link text-muted pl-lg-5">管理员列表</a></li>
+                        <li class="sidebar-list-item"><a href="../admin/create.html" class="sidebar-link text-muted pl-lg-5">新增管理员</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#goods" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>商品</span></a>
+                <div id="goods" class="collapse">
+                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                        <li class="sidebar-list-item"><a href="../goods/index.html" class="sidebar-link text-muted pl-lg-5">商品列表</a></li>
+                        <li class="sidebar-list-item"><a href="../goods/create.html" class="sidebar-link text-muted pl-lg-5">新增商品</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#orders" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>订单</span></a>
+                <div id="orders" class="collapse">
+                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                        <li class="sidebar-list-item"><a href="../orders/index.html" class="sidebar-link text-muted pl-lg-5">订单列表</a></li>
+                        <li class="sidebar-list-item"><a href="../orders/create.html" class="sidebar-link text-muted pl-lg-5">新增订单</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#role" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>角色</span></a>
+                <div id="role" class="collapse">
+                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                        <li class="sidebar-list-item"><a href="../roles/index.html" class="sidebar-link text-muted pl-lg-5">角色列表</a></li>
+                        <li class="sidebar-list-item"><a href="../roles/create.html" class="sidebar-link text-muted pl-lg-5">新增角色</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#operation" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>操作</span></a>
+                <div id="operation" class="collapse">
+                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                        <li class="sidebar-list-item"><a href="../operations/index.html" class="sidebar-link text-muted pl-lg-5">操作列表</a></li>
+                        <li class="sidebar-list-item"><a href="../operations/create.html" class="sidebar-link text-muted pl-lg-5">新增操作</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#data" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>数据统计</span></a>
+                <div id="data" class="collapse">
+                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                        <li class="sidebar-list-item"><a href="../statistics/index.html" class="sidebar-link text-muted pl-lg-5">#</a></li>
+                        <li class="sidebar-list-item"><a href="../statistics/create.html" class="sidebar-link text-muted pl-lg-5">#</a></li>
+                    </ul>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="page-holder w-100 d-flex flex-wrap">
+        <div class="container-fluid px-xl-5">
+            <div class="col-lg-12 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h6 text-uppercase mb-0">修改信息</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="form-horizontal" method="post">
+                            <div class="form-group row">
+                                <label for="username" class="col-md-2 form-control-label"><span style="font-size: 20px">用户名</span></label>
+                                <div class="col-md-9">
+                                    <input id="username" type="text" name="username" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-md-2 form-control-label"><span style="font-size: 20px">邮箱</span></label>
+                                <div class="col-md-9">
+                                    <input id="email" type="text" name="email" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="address" class="col-md-2 form-control-label"><span style="font-size: 20px">地址</span></label>
+                                <div class="col-md-9">
+                                    <input id="address" type="text" name="address" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="phone" class="col-md-2 form-control-label"><span style="font-size: 20px">电话</span></label>
+                                <div class="col-md-9">
+                                    <input id="phone" type="text" name="phone" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-2 form-control-label"><span style="font-size: 20px">密码</span></label>
+                                <div class="col-md-9">
+                                    <input id="password" type="text" name="password" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-9 ml-auto">
+                                    <button type="reset" class="btn btn-secondary">取消</button>
+                                    <button type="button" class="btn btn-primary" onclick="userEdit()">修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="../../vendor/popper.js/umd/popper.min.js"> </script>
+<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="../../vendor/chart.js/Chart.min.js"></script>
+<script src="../../js/js.cookie.min.js"></script>
+<script src="../../js/charts-home.js"></script>
+<script src="../../js/front.js"></script>
+<script type="text/javascript">
+
+    // 获取参数id的值
+    function getQueryVariable(variable)
+    {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable)
+                return pair[1];
+       }
+       return false;
+    }
+
+    // 获取id用户的数据
+    id = getQueryVariable('id');
+    $.ajax({
+        'type': 'get',
+        'url': 'http://qiudaniu.top:5002/bazinga/api/user/getUserById?userId=' +　id,
+        'headers' : {
+            'admin_token': localStorage.getItem('admin-token'),
+        },
+        success: function(data){
+            if (data.code == 200) {
+                $("#username").val(data.data.username);
+                $("#email").val(data.data.email);
+                $("#phone").val(data.data.phone);
+                $("#address").val(data.data.address);
+            }else{
+                alert(data.message);
+            }
+        }
+    })
+    function userEdit(){
+        $.ajax({
+            'type' : 'post',
+            'url' : 'http://qiudaniu.top:5002/bazinga/api/user/updateUser',
+            contentType: 'application/json',
+            'headers' : {
+                'admin_token' : localStorage.getItem('admin-token'),
+            },
+            'data' : JSON.stringify({
+                'username': $("#username").val(),
+                'email': $("#email").val(),
+                'address': $("#address").val(),
+                'phone': $("#phone").val(),
+                'password': $("#password").val(),
+                'id': id,
+            }),
+            'dataType' : 'json',
+            success: function(data){
+                if (data.code == 200) {
+                    window.location.href = 'index.html';
+                }else{
+                    alert(data.message);
+                }
+            }
+        })
+    }
+
+    function exit(){
+        localStorage.removeItem('admin-token');
+        if (! localStorage.getItem('admin-token')) {
+            window.location.href = '../login.html';
+        }
+    }
+</script>
+</body>
+</html>
