@@ -68,40 +68,40 @@
             <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#goods" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>商品</span></a>
                 <div id="goods" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="../user/index.html" class="sidebar-link text-muted pl-lg-5">商品列表</a></li>
-                        <li class="sidebar-list-item"><a href="../user/create.html" class="sidebar-link text-muted pl-lg-5">新增商品</a></li>
+                        <li class="sidebar-list-item"><a href="../goods/index.html" class="sidebar-link text-muted pl-lg-5">商品列表</a></li>
+                        <li class="sidebar-list-item"><a href="../goods/create.html" class="sidebar-link text-muted pl-lg-5">新增商品</a></li>
                     </ul>
                 </div>
             </li>
             <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#orders" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>订单</span></a>
                 <div id="orders" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="../user/index.html" class="sidebar-link text-muted pl-lg-5">订单列表</a></li>
-                        <li class="sidebar-list-item"><a href="../user/create.html" class="sidebar-link text-muted pl-lg-5">新增订单</a></li>
+                        <li class="sidebar-list-item"><a href="../orders/index.html" class="sidebar-link text-muted pl-lg-5">订单列表</a></li>
+                        <li class="sidebar-list-item"><a href="../orders/create.html" class="sidebar-link text-muted pl-lg-5">新增订单</a></li>
                     </ul>
                 </div>
             </li>
             <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#role" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>角色</span></a>
                 <div id="role" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="../user/index.html" class="sidebar-link text-muted pl-lg-5">角色列表</a></li>
-                        <li class="sidebar-list-item"><a href="../user/create.html" class="sidebar-link text-muted pl-lg-5">新增角色</a></li>
+                        <li class="sidebar-list-item"><a href="../roles/index.html" class="sidebar-link text-muted pl-lg-5">角色列表</a></li>
+                        <li class="sidebar-list-item"><a href="../roles/create.html" class="sidebar-link text-muted pl-lg-5">新增角色</a></li>
                     </ul>
                 </div>
             </li>
             <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#operation" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>操作</span></a>
                 <div id="operation" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="../user/index.html" class="sidebar-link text-muted pl-lg-5">操作列表</a></li>
-                        <li class="sidebar-list-item"><a href="../user/create.html" class="sidebar-link text-muted pl-lg-5">新增操作</a></li>
+                        <li class="sidebar-list-item"><a href="../operations/index.html" class="sidebar-link text-muted pl-lg-5">操作列表</a></li>
+                        <li class="sidebar-list-item"><a href="../operations/create.html" class="sidebar-link text-muted pl-lg-5">新增操作</a></li>
                     </ul>
                 </div>
             </li>
             <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#data" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>数据统计</span></a>
                 <div id="data" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="../user/index.html" class="sidebar-link text-muted pl-lg-5">#</a></li>
-                        <li class="sidebar-list-item"><a href="../user/create.html" class="sidebar-link text-muted pl-lg-5">#</a></li>
+                        <li class="sidebar-list-item"><a href="../statistics/index.html" class="sidebar-link text-muted pl-lg-5">#</a></li>
+                        <li class="sidebar-list-item"><a href="../statistics/create.html" class="sidebar-link text-muted pl-lg-5">#</a></li>
                     </ul>
                 </div>
             </li>
@@ -179,9 +179,11 @@
     $("#deleteHaulBtn").click(function() {
         user_id = $("#deleteHaulId").val();
         $.ajax({
-            url:'',
-            type:"post",
-            data:{'_method':"DELETE", 'id':line_id, '_token':'{{csrf_token()}}'},
+            url:'http://qiudaniu.top:5002/bazinga/api/admin/deleteAdminById?adminId=' + user_id,
+            type:"get",
+            headers: {
+                'admin_token': localStorage.getItem('admin-token')
+            },
             dataType:"json",
             success:function(e){
                 if(e.code == 200){
@@ -189,9 +191,8 @@
                 }
             },
             fail:function(e){
-                if (e.code == 201){
-                    alert(e.message)
-                }
+                alert(e.message)
+                
             }
         });
     });

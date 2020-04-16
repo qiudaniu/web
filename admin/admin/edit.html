@@ -172,16 +172,13 @@
     id = getQueryVariable('id');
     $.ajax({
         'type': 'get',
-        'url': 'http://qiudaniu.top:5002/bazinga/api/user/getUserById?userId=' +　id,
+        'url': 'http://qiudaniu.top:5002/bazinga/api/admin/getAdminById?adminId=' +　id,
         'headers' : {
                 'admin_token': localStorage.getItem('admin-token'),
             },
         success: function(data){
             if (data.code == 200) {
-                $("#username").val(data.data.username);
-                $("#email").val(data.data.email);
-                $("#phone").val(data.data.phone);
-                $("#address").val(data.data.address);
+                $("#account").val(data.data.account);
             }else{
                 alert(data.message);
             }
@@ -190,16 +187,14 @@
     function userEdit(){
         $.ajax({
             'type' : 'post',
-            'url' : 'http://qiudaniu.top:5002/bazinga/api/user/updateUser',
+            'url' : 'http://qiudaniu.top:5002/bazinga/api/admin/updateAdmin',
             contentType: 'application/json',
             'headers' : {
-                'admin_token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxIn0.qfd0G-elhE1aGr15LrnYlIZ_3UToaOM5HeMcXrmDGBM',
+                'admin_token' : localStorage.getItem('admin-token'),
             },
             'data' : JSON.stringify({
-                'username': $("#username").val(),
-                'email': $("#email").val(),
-                'address': $("#address").val(),
-                'phone': $("#phone").val(),
+                'account': $("#account").val(),
+                'roleId': $("#roleAll").val(),
                 'password': $("#password").val(),
                 'id': id,
             }),

@@ -124,6 +124,11 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="operations" class="col-md-2 form-control-label"><span style="font-size: 20px">操作</span></label>
+                                <div class="col-md-9" id="operations">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-md-9 ml-auto">
                                     <button type="reset" class="btn btn-secondary">取消</button>
                                     <button type="button" class="btn btn-primary" onclick="userCreate()">创建</button>
@@ -147,12 +152,17 @@
 <script src="../../js/front.js"></script>
 <script type="text/javascript">
     function userCreate(){
+        var checkbox = ''
+        $.each($('input:checkbox:checked'),function(){
+                checkbox += $(this).val() + ',' 
+            });
         $.ajax({
             'type' : 'post',
             'url' : 'http://qiudaniu.top:5002/bazinga/api/role/createRole',
             contentType : 'application/json',
             'data' : JSON.stringify({
                 'roleName' : document.getElementById('roleName').value,
+                'operationId': checkbox
             }),
             'headers' : {
                 'admin_token': localStorage.getItem('admin-token'),
@@ -170,6 +180,26 @@
             }
         })
     }
+    $.ajax({
+        url: 'http://qiudaniu.top:5002/bazinga/api/operation/getAllOperations',
+        type: 'get',
+        headers : {
+                'admin_token': localStorage.getItem('admin-token'),
+            },
+        success: function(data){
+            if (data.code == 200) {
+                var str = '';
+                console.log(data.data);
+                for(var i=0; i<data.data['length']; i++){
+                        // console.log(data.data[i])
+                        datas = data.data[i];
+                        str += '<input type="checkbox" name="operationId" value="'+datas.id+'">'+datas.operationName
+                    }
+                    $("#operations").html(str);
+            }
+        }
+
+    })
     function exit(){
         localStorage.removeItem('admin-token');
         if (! localStorage.getItem('admin-token')) {

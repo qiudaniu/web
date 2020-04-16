@@ -120,10 +120,10 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>订单号</th>
                                 <th>用户名</th>
-                                <th>邮箱</th>
-                                <th>地址</th>
-                                <th>电话</th>
+                                <th>商品名</th>
+                                <th>数量</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -212,7 +212,7 @@
 
     $.ajax({
             'type':'get',
-            'url': 'http://qiudaniu.top:5002/bazinga/api/role/getAllRoles',
+            'url': 'http://qiudaniu.top:5002/bazinga/api/order/getAllOrders',
             'headers' : {
                 'admin_token': localStorage.getItem('admin-token'),
             },
@@ -225,7 +225,7 @@
                         // console.log(data.data[i])
                         datas = data.data[i];
                         id = i+1;
-                        str += '<tr><td>' + id + '</td><td>'+ datas.username +'</td><td>'+datas.email+'</td><td>'+datas.address+'</td><td>'+datas.phone+'</td><td><a href="javascript:void(0)" onclick="showEditModal('+datas.id+')">修改</a><a href="javascript:void(0)" onclick="showDeleteModal('+datas.id+')">删除</a></td></tr>'
+                        str += '<tr><td>' + id + '</td><td>'+ datas.orderNo +'</td><td>'+datas.user.username+'</td><td>'+datas.good.name+'</td><td>'+datas.amount+'</td><td><a href="javascript:void(0)" onclick="showEditModal('+datas.id+')">修改</a><a href="javascript:void(0)" onclick="showDeleteModal('+datas.id+')">删除</a></td></tr>'
                     }
                     $("tbody").html(str);
                 }
