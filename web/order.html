@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>17商城</title>
@@ -16,7 +16,7 @@
    <span class="topRight">
     <a href="vip.html">我的17</a>&nbsp;| 
     <a href="order.html">我的订单</a>&nbsp;| 
-    <a href="login.html">会员中心</a>&nbsp;|
+    <a href="vip.html">会员中心</a>&nbsp;|
     <a href="contact.html">联系我们</a>
    </span>
   </div><!--top/-->
@@ -133,8 +133,7 @@
    <div class="pntRight">
     <ul class="nav">
      <li><a href="index.html">商城首页</a></li>
-     <li><a href="product.html">促销中心</a></li>
-     <li><a href="login.html">会员中心</a></li>
+     <li><a href="vip.html">会员中心</a></li>
      <li class="navCur"><a href="help.html">帮助中心</a></li>
      <div class="clears"></div>
      <div class="phone">TEL：021-12345678</div>
@@ -148,41 +147,13 @@
   <div class="cont">
    <div class="carImg"><img src="images/car1.jpg" width="951" height="27" /></div>
    <table class="orderList">
-    <tr>
-     <th width="20"></th>
-     <th width="430">商品</th>
-     <th width="135">单价</th>
-     <th width="135">数量</th>
-     <th width="135">总金额</th>
-     <th>操作</th>
-    </tr>
-    <tr>
-     <td><input type="checkbox" /></td>
-     <td>
-      <dl>
-       <dt><a href="proinfo.html"><img src="images/pro1.jpg" width="85" height="85" /></a></dt>
-       <dd>全球最大的中文搜索引擎、致力于让网民更便捷<br /><span class="red">有货：</span>从上海出发</dd>
-       <div class="clears"></div>
-      </dl>
-     </td>
-     <td><strong class="red">￥70.20</strong></td>
-     <td>
-     <div class="jia_jian">
-      <img src="images/jian.jpg" width="21" height="25" class="jian" />
-      <input type="text" class="shuliang" value="1" />
-      <img src="images/jia.jpg" width="21" height="25" class="jia" />
-     </div>
-     </td>
-     <td><strong class="red">￥70.20</strong></td>
-     <td><a href="#" class="green">收藏</a><br /><a href="#" class="green">删除</a></td>
-    </tr>
-    
-    <tr>
+
+
      <td colspan="6"><div class="shanchu"><img src="images/lajio.jpg" /> 全部删除</div></td>
     </tr>
    </table><!--orderList/-->
    <div class="zongji">
-    总计(不含运费)：<strong class="red">￥70.42</strong>
+    总计(不含运费)：<strong class="red">￥<span></span></strong>
    </div><!--zongji/-->
    <div class="jiesuan">
     <a href="product.html" class="jie_1">继续购物&gt;&gt;</a>
@@ -237,5 +208,54 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script type="text/javascript">
+     $.ajax({
+         url: "http://qiudaniu.top:5002/bazinga/api/shopCart/getUserShopCarts",
+         type: 'get',
+         data: {
+             userId: localStorage.getItem('user_id')
+         },
+         headers: {
+             'user_token': localStorage.getItem('token')
+         },
+         success: function (res) {
+             if (res.code == 200){
+                 var str = '<tr><th width="20"></th><th width="430">商品</th><th width="135">单价</th><th width="135">数量</th><th width="135">总金额</th><th>操作</th></tr>';
+                 var data = res.data;
+                 console.log(data);
+                 for (var i=0; i<data.length; i++){
+                     str += '<tr id="'+data[i].good.id+'"><td><input type="checkbox" /></td><td><dl><dt><a href="proinfo.html?id='+data[i].good.id+'"><img src="'+data[i].good.pic+'" width="85" height="85" /></a></dt>'+
+                         '<dd>'+data[i].good.name+'</dd><div class="clears"></div></dl></td><td><strong class="red">￥<span id="price_'+data[i].good.id+'">'+data[i].good.presentPrice+'</span></strong></td> <td><div class="jia_jian"><input type="text" class="shuliang" onchange="allPrice(this.value, '+data[i].good.id+')" value="'+data[i].amount+'" /></div></td>'+
+                         '<td><strong class="red">￥<span id="allPrice_'+data[i].good.id+'">'+data[i].amount*data[i].good.presentPrice+'</span></strong></td><td><a href="#" onclick="deleteGoods('+data[i].good.id+')" class="green">删除</a></td></tr><tr>';
+                 }
+                 $(".orderList").html(str);
+             }
+         }
+     });
+     function deleteGoods(id) {
+         $.ajax({
+             url: "http://qiudaniu.top:5002/bazinga/api/shopCart/deleteShopCart",
+             type: 'post',
+             headers: {
+                 'user_token' : localStorage.getItem('token')
+             },
+             data: {
+                 shopCartId: id
+             },
+             success: function(res){
+                 if (res.code == 200){
+                     alert('删除成功');
+                     window.location.href = 'order.html';
+                 }
+             }
+         })
+     }
+     
+     function allPrice(value, id) {
+         var price = $("#price_" + id).text();
+         var allPrice = value* price;
+         $("#allPrice_"+id).text(allPrice);
+     }
+ </script>
 </body>
 </html>

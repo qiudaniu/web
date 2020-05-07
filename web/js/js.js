@@ -133,12 +133,53 @@ $(window).scroll(function(){
 			alert("两次输入的密码不一样,请重新输入");
 			$(".vipPwd1,.vipPwd2").val("");
 			}
-			else{
-				alert("恭喜您，修改成功！");
-				$(".vipPwd1,.vipPwd2").val("");
-				}
 		})
-	})
+	});
+
+	function getQueryVariable(variable)
+	{
+		var query = window.location.search.substring(1);
+		var vars = query.split("&");
+		for (var i=0;i<vars.length;i++) {
+			var pair = vars[i].split("=");
+			if(pair[0] == variable){return pair[1];}
+		}
+		return(false);
+	}
+
+	if (localStorage.getItem('token')){
+		$.ajax({
+			url: "http://qiudaniu.top:5002/bazinga/api/shopCart/getUserShopCarts",
+			type: 'get',
+			data: {
+				userId: localStorage.getItem('user_id')
+			},
+			headers: {
+				'user_token': localStorage.getItem('token')
+			},
+			success: function (res) {
+				if (res.code == 200){
+					$(".gouCar").css('display', 'block');
+					$("#num").text(res.data.length);
+				}
+            }
+		});
+		$.ajax({
+			url: "http://qiudaniu.top:5002/bazinga/api/shopCart/countTotalPrice",
+			type: 'get',
+			data: {
+				userId: localStorage.getItem('user_id')
+			},
+			headers: {
+				'user_token': localStorage.getItem('token')
+			},
+			success: function (res) {
+				if (res.code == 200){
+					$("#price").text(res.data.total);
+				}
+            }
+		})
+	}
 	
 //banner	
 	/*! jQuery.kinMaxShow v1.0 | mr.kin@foxmail.com */

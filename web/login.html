@@ -58,7 +58,7 @@
 		}).blur(function() {
 			$('.login-owl').removeClass('password');
 		});
-		$('#login #register-password').focus(function() {
+		$('#login #password').focus(function() {
 			$('.register-owl').addClass('password');
 		}).blur(function() {
 			$('.register-owl').removeClass('password');
@@ -77,7 +77,7 @@
 	
 	function goto_register(){
 		$("#register-username").val("");
-		$("#register-password").val("");
+		$("#password").val("");
 		$("#register-repassword").val("");
 		$("#tab-2").prop("checked",true);
 	}
@@ -106,7 +106,7 @@
         		align: 't',
         		width: 'auto',
         		height: 'auto',
-        		content:"用户名不能为空"
+        		content:"邮箱不能为空"
         	});
 			flag = true;
 		}
@@ -129,14 +129,18 @@
 			// alert('登录成功');
 			// return false;
 			$.ajax({
-				url: 'http://139.155.14.75:5003/api/stu/login' ,
-				type: 'POST' ,
-				data: 'account='+username+"&pwd="+password ,
-				dataType: 'JSON' ,
+				url: 'http://qiudaniu.top:5002/bazinga/api/user/login',
+				type: 'POST',
+                contentType: 'application/json',
+				data: JSON.stringify({
+					'email': username,
+					'password': password
+				}),
 				success: function (response) {
-					console.log(response.code) ;
+					console.log(response) ;
 					if(response.code === 200) {
-						localStorage.setItem("studentId" , response.data.id)
+						localStorage.setItem("user_id" , response.data.user.id);
+						localStorage.setItem("token" , response.data.token);
 						location.href = "index.html" ;
 					}
 				}
@@ -147,9 +151,9 @@
 	//注册
 	function register(){
 		var username = $("#register-username").val();
-		var	password = $("#register-password").val();
+		var	password = $("#password").val();
 		var	repassword = $("#register-repassword").val();
-		var stuName = $("#register-name").val() ;
+		var stuName = $("#email").val() ;
 		var flag = false ;
 		//判断用户名密码是否为空
 		if(username == ""){
@@ -165,7 +169,7 @@
 		}
 		if(password == ""){
 			$.pt({
-        		target: $("#register-password"),
+        		target: $("#password"),
         		position: 'r',
         		align: 't',
         		width: 'auto',
@@ -188,12 +192,12 @@
 		}
 		if(stuName == ""){
 			$.pt({
-				target: $("#register-name"),
+				target: $("#email"),
 				position: 'r',
 				align: 't',
 				width: 'auto',
 				height: 'auto',
-				content:"姓名不能为空"
+				content:"邮箱不能为空"
 			});
 			flag = true;
 		}
@@ -217,10 +221,14 @@
 					// 	second--;
 					// },1000);
 					$.ajax({
-						url: 'http://139.155.14.75:5003/api/stu/createStudent' ,
+						url: 'http://qiudaniu.top:5002/bazinga/api/user/createUser',
 						type: 'POST' ,
-						data: 'account='+username+"&pwd="+password+"&stuName="+stuName ,
-						dataType: 'JSON' ,
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+						    'email': stuName,
+							'password': password,
+							'username': username
+						}),
 						success: function (response) {
 							console.log(response) ;
 						}
@@ -265,7 +273,7 @@
 			flag = true;
 		}
 		//用户名只能是15位以下的字母或数字
-		var regExp = new RegExp("^[a-zA-Z0-9_]{1,15}$");
+		var regExp = new RegExp("^[a-zA-Z0-9_]{1,20}$");
 		if(!regExp.test(username)){
 			$.pt({
         		target: $("#forget-username"),
@@ -371,7 +379,7 @@ body{
 						<section class="content">
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="text" id="login-username" 
-									autocomplete="off" placeholder="请输入用户名" tabindex="1" maxlength="15" />
+									autocomplete="off" placeholder="请输入邮箱" tabindex="1" maxlength="20" />
 								<label class="input__label input__label--hideo" for="login-username">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
@@ -454,15 +462,15 @@ body{
 						<section class="content">
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="text" id="register-username" 
-									autocomplete="off" placeholder="请输入用户名" maxlength="15"/>
+									autocomplete="off" placeholder="请输入用户名" maxlength="20"/>
 								<label class="input__label input__label--hideo" for="register-username">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="password" id="register-password" placeholder="请输入密码" maxlength="15"/>
-								<label class="input__label input__label--hideo" for="register-password">
+								<input class="input__field input__field--hideo" type="password" id="password" placeholder="请输入密码" maxlength="15"/>
+								<label class="input__label input__label--hideo" for="password">
 									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
@@ -475,8 +483,8 @@ body{
 								</label>
 							</span>
 							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="register-name" autocomplete="off" placeholder="请输入姓名"/>
-								<label class="input__label input__label--hideo" for="register-name">
+								<input class="input__field input__field--hideo" type="text" id="email" autocomplete="off" placeholder="请输入邮箱"/>
+								<label class="input__label input__label--hideo" for="email">
 									<i class="fa fa-fw fa-wifi icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>

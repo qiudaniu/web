@@ -162,9 +162,7 @@
       </dd>
      <dt>账户设置</dt>
       <dd>
-       <a href="vipMy.html">个人信息</a>
        <a href="vipPwd.html" class="vipCur">密码修改</a>
-       <a href="vipAdress.html">收货地址</a>
       </dd>
       <dt>客户服务</dt>
        <dd>
@@ -185,14 +183,14 @@
     </div><!--addList-->
     <div class="addList">
      <label>新密码:</label>
-     <input type="password" class="vipPwd1" />
+     <input type="password" id="password" class="vipPwd1" />
     </div><!--addList-->
     <div class="addList">
      <label>确认密码:</label>
-     <input type="password" class="vipPwd2" />
+     <input type="password" id="repassword" class="vipPwd2" />
     </div><!--addList-->
     <div class="addList2">
-     <input type="image" src="images/baocun.png" width="79" height="30" class="vipSub" />
+     <input type="image" src="images/baocun.png" width="79" height="30" class="vipSub" onclick="updatePassword()"/>
     </div><!--addList2/-->
    </div><!--address/-->
    </div><!--contRight/-->
@@ -244,5 +242,26 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script type="text/javascript">
+     function updatePassword() {
+         $.ajax({
+             url: "http://qiudaniu.top:5002/bazinga/api/user/updatePassword",
+             type: 'post',
+//             contentType: 'application/json',
+             headers: {
+                 'user_token' : localStorage.getItem('token')
+             },
+             data: {
+                 'userId': localStorage.getItem('user_id'),
+                 'password': $("#password").val()
+             },
+             success: function (res) {
+                 if (res.code == 200){
+                     window.location.href='vip.html';
+                 }
+             }
+         })
+     }
+ </script>
 </body>
 </html>

@@ -21,7 +21,7 @@
    <span class="topRight">
     <a href="vip.html">我的17</a>&nbsp;| 
     <a href="order.html">我的订单</a>&nbsp;| 
-    <a href="login.html">会员中心</a>&nbsp;|
+    <a href="vip.html">会员中心</a>&nbsp;|
     <a href="contact.html">联系我们</a>
    </span>
   </div><!--top/-->
@@ -31,15 +31,6 @@
     <div class="subBoxDiv">
      <input type="text" class="subLeft" />
      <input type="image" src="images/subimg.png" width="63" height="34" class="sub" />
-     <div class="hotWord">
-      热门搜索：
-      <a href="proinfo.html">冷饮杯</a>&nbsp;
-      <a href="proinfo.html">热饮杯</a> &nbsp;
-      <a href="proinfo.html">纸杯</a>&nbsp;
-      <a href="proinfo.html">纸巾</a>  &nbsp;
-      <a href="proinfo.html">纸巾</a> &nbsp;
-      <a href="proinfo.html">纸杯</a>&nbsp;
-     </div><!--hotWord/-->
     </div><!--subBoxDiv/-->
    </form><!--subBox/-->
    <div class="gouwuche">
@@ -138,7 +129,6 @@
    <div class="pntRight">
     <ul class="nav">
      <li><a href="index.html">商城首页</a></li>
-     <li><a href="product.html">促销中心</a></li>
      <li><a href="login.html">会员中心</a></li>
      <li><a href="help.html">帮助中心</a></li>
      <div class="clears"></div>
@@ -162,9 +152,7 @@
       </dd>
      <dt>账户设置</dt>
       <dd>
-       <a href="vipMy.html">个人信息</a>
        <a href="vipPwd.html">密码修改</a>
-       <a href="vipAdress.html">收货地址</a>
       </dd>
       <dt>客户服务</dt>
        <dd>
@@ -181,56 +169,36 @@
     <table class="vipMy">
      <tr>
       <th>用户名</th>
-      <th>邮编</th>
-      <th>真实姓名</th>
+      <th>邮箱</th>
       <th>联系方式</th>
-      <th>证件号码</th>
       <th>地址</th>
      </tr>
      <tr>
-      <td>纯小绿先森</td>
-      <td>200000</td>
-      <td>张益达</td>
-      <td>13322256586</td>
-      <td>3124199901235468</td>
-      <td>上海市普陀区中友大厦1040弄19楼</td>
+      <td id="name"></td>
+      <td id="email"></td>
+      <td id="phone"></td>
+      <td id="address"></td>
      </tr>
     </table><!--vipMy/-->
     <div class="address">
     <div class="addList">
      <label><span class="red">* </span>用户名:</label>
-     <input type="text" />
+     <input type="text" name="username" id="updateName"/>
     </div><!--addList-->
     <div class="addList">
      <label><span class="red">* </span>详细地址:</label>
-     <input type="text" />
+     <input type="text" name="address" id="updateAddress"/>
     </div><!--addList-->
     <div class="addList">
-     <label><span class="red">* </span>邮政编码:</label>
-     <input type="text" />
-    </div><!--addList-->
-    <div class="addList">
-     <label><span class="red">* </span>证件号码:</label>
-     <input type="text" />
+     <label><span class="red">* </span>邮箱:</label>
+     <input type="text" name="email" id="updateEmail"/>
     </div><!--addList-->
     <div class="addList">
      <label><span class="red">* </span>手机号码:</label>
-     <input type="text" /> 或者固定电话 <input type="text" />
-    </div><!--addList--> 
-    <div class="addList">
-     <label><span class="red">* </span>选择地区:</label>
-     <select>
-      <option>请选择省</option>
-     </select>
-     <select>
-      <option>请选择市</option>
-     </select>
-     <select>
-      <option>请选择地区</option>
-     </select>
+     <input type="text" name="phone" id="updatePhone"/>
     </div><!--addList-->
     <div class="addList2">
-     <input type="image" src="images/baocun.png" width="79" height="30" />
+     <input type="image" src="images/baocun.png" width="79" height="30" onclick="updateUser()"/>
     </div><!--addList2/-->
    </div><!--address/-->
    </div><!--contRight/-->
@@ -270,10 +238,9 @@
    <p>
    <a href="#">进入17官网</a>&nbsp;|&nbsp;
    <a href="index.html">商城首页</a>&nbsp;|&nbsp;
-   <a href="product.html">促销中心</a>&nbsp;|&nbsp;
    <a href="order.html">我的订单</a>&nbsp;|&nbsp;
    <a href="new.html">新闻动态</a>&nbsp;|&nbsp;
-   <a href="login.html">会员中心</a>&nbsp;|&nbsp;
+   <a href="vip.html">会员中心</a>&nbsp;|&nbsp;
    <a href="help.htmll">帮助中心</a>
    </p>
    <p>
@@ -282,5 +249,47 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script>
+  var id = localStorage.getItem('user_id');
+   $.ajax({
+       url: "http://qiudaniu.top:5002/bazinga/api/user/getUserById?userId=" + id,
+       type: 'get',
+       success: function (res) {
+           if (res.code == 200){
+               $("#name").text(res.data.username);
+               $("#email").text(res.data.email);
+               $("#address").text(res.data.address);
+               $("#phone").text(res.data.phone);
+               $("#updateName").val(res.data.username);
+               $("#updateEmail").val(res.data.email);
+               $("#updateAddress").val(res.data.address);
+               $("#updatePhone").val(res.data.phone);
+           }
+       }
+   });
+  function updateUser() {
+       $.ajax({
+           url: "http://qiudaniu.top:5002/bazinga/api/user/userUpdateUser",
+           type: 'post',
+           contentType: 'application/json',
+           headers: {
+               'user_token': localStorage.getItem('token')
+           },
+           data: JSON.stringify({
+               id: id,
+               username: $('#updateName').val(),
+               email: $('#updateEmail').val(),
+               address: $('#updateAddress').val(),
+               phone: $('#updatePhone').val()
+           }),
+           success: function (res) {
+               if (res.code == 200){
+                   window.location.href = 'vip.html';
+               }
+           }
+
+       })
+  }
+ </script>
 </body>
 </html>

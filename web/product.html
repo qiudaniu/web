@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>17商城</title>
@@ -229,46 +229,7 @@
    </div><!--contLeft/-->
    <div class="contRight">
     <div class="frProList">
-      <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro4.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro5.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro3.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro2.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro2.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro3.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro4.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-     </dl>
-     <dl>
-       <dt><a href="proinfo.html"><img src="images/rdPro5.jpg" width="132" height="129" /></a></dt>
-       <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-       <dd class="cheng">￥19.80/袋 <span>￥15.00</span></dd>
-      </dl>
+
       <div class="clears"></div>
      </div><!--frProList-->
    </div><!--contRight/-->
@@ -320,5 +281,26 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script type="text/javascript">
+   id = getQueryVariable('id');
+  $.ajax({
+      url: "http://qiudaniu.top:5002/bazinga/api/good/getGoodsByType",
+      type: 'get',
+      data: {
+          typeId: id
+      },
+      success: function (res) {
+          if(res.code == 200){
+              console.log(res.data);
+              var data = res.data;
+              var str = '';
+              for (var i=0; i<data.length; i++){
+                  str += '<dl> <dt><a href="proinfo.html?id='+data[i].id+'"><img src="'+data[i].pic+'" width="132" height="129" /></a></dt><dd>'+data[i].name+'</dd><dd class="cheng">￥'+data[i].presentPrice+'<span>￥'+data[i].originalPrice+'</span></dd></dl>';
+              }
+              $('.frProList').html(str);
+          }
+      }
+  })
+ </script>
 </body>
 </html>

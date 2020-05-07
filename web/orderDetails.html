@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>17商城</title>
@@ -162,9 +162,7 @@
       </dd>
      <dt>账户设置</dt>
       <dd>
-       <a href="vipMy.html">个人信息</a>
        <a href="vipPwd.html">密码修改</a>
-       <a href="vipAdress.html">收货地址</a>
       </dd>
       <dt>客户服务</dt>
        <dd>
@@ -181,28 +179,23 @@
    <table class="orderDeatils">
     <tr>
      <th>订单编号</th>
-     <td>465489132154416</td>
+     <td id="orderNo"></td>
     </tr>
     <tr>
      <th>商品名称</th>
-     <td>妙捷 一次性纸杯</td>
+     <td id="name"></td>
     </tr>
     <tr>
      <th>订单价钱</th>
-     <td>￥185.80</td>
+     <td id="price">￥</td>
     </tr>
     <tr>
      <th>订单信息</th>
-     <td> 
-张益达，13572607270，， 陕西省 汉中市 勉县 勉县东方眼科医院，724200</td>
+     <td id="orderInfo"></td>
     </tr>
     <tr>
      <th>商家</th>
      <td>17商城</td>
-    </tr>
-    <tr>
-     <th>支付方式</th>
-     <td>支付宝支付</td>
     </tr>
     <tr>
      <th>支付状态</th>
@@ -258,5 +251,23 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script type="text/javascript">
+     id = getQueryVariable('id');
+     $.ajax({
+         url: "http://qiudaniu.top:5002/bazinga/api/order/userGetOrderById?orderId=" + id,
+         type: 'get',
+         headers: {
+             'user_token': localStorage.getItem('token')
+         },
+         success: function (res) {
+             if (res.code == 200){
+                 $("#name").text(res.data.good.name);
+                 $("#orderNo").text(res.data.orderNo);
+                 $("#price").text(res.data.amount*res.data.good.presentPrice);
+                 $("#orderInfo").text(res.data.good.introduction);
+             }
+         }
+     })
+ </script>
 </body>
 </html>

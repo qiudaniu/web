@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>17商城</title>
@@ -138,8 +138,7 @@
    <div class="pntRight">
     <ul class="nav">
      <li><a href="index.html">商城首页</a></li>
-     <li><a href="product.html">促销中心</a></li>
-     <li><a href="login.html">会员中心</a></li>
+     <li><a href="vip.html">会员中心</a></li>
      <li><a href="help.html">帮助中心</a></li>
      <div class="clears"></div>
      <div class="phone">TEL：021-12345678</div>
@@ -162,9 +161,7 @@
       </dd>
      <dt>账户设置</dt>
       <dd>
-       <a href="vipMy.html">个人信息</a>
        <a href="vipPwd.html">密码修改</a>
-       <a href="vipAdress.html">收货地址</a>
       </dd>
       <dt>客户服务</dt>
        <dd>
@@ -177,52 +174,11 @@
     </dl><!--helpNav/-->
    </div><!--contLeft/-->
    <div class="contRight">
-    <h1 class="vipName"><span>用户名：</span>纯小绿先森</h1>
     <h2 class="oredrName">
     我的订单 <span style="margin-left:40px;">待发货 <span class="red">10</span> </span>
     <span>待收货 <span class="red">15</span></span>
     </h2>
-    <table class="vipOrder">
-     <tr>
-      <td><a href="proinfo.html"><img src="images/rdPro4.jpg" width="60" height="55"></a></td>
-      <td>张益达</td>
-      <td>￥16.9<br />支付宝支付</td>
-      <td>2014年6月23日11:32:17</td>
-      <td><a href="success.html"><strong>等待付款</strong></a></td>
-      <td><a href="orderDetails.html">查看</a></td>
-     </tr>
-     <tr>
-      <td><a href="proinfo.html"><img src="images/rdPro3.jpg" width="60" height="55"></a></td>
-      <td>张益达</td>
-      <td>￥16.9<br />支付宝支付</td>
-      <td>2014年6月23日11:32:17</td>
-      <td><a href="success.html"><strong>等待付款</strong></a></td>
-      <td><a href="orderDetails.html">查看</a></td>
-     </tr>
-     <tr>
-      <td><a href="proinfo.html"><img src="images/rdPro2.jpg" width="60" height="55"></a></td>
-      <td>张益达</td>
-      <td>￥16.9<br />支付宝支付</td>
-      <td>2014年6月23日11:32:17</td>
-      <td><a href="success.html"><strong>等待付款</strong></a></td>
-      <td><a href="orderDetails.html">查看</a></td>
-     </tr>
-     <tr>
-      <td><a href="proinfo.html"><img src="images/rdPro1.jpg" width="60" height="55"></a></td>
-      <td>张益达</td>
-      <td>￥16.9<br />支付宝支付</td>
-      <td>2014年6月23日11:32:17</td>
-      <td><a href="success.html"><strong>等待付款</strong></a></td>
-      <td><a href="orderDetails.html">查看</a></td>
-     </tr>
-     <tr>
-      <td><a href="proinfo.html"><img src="images/rdPro5.jpg" width="60" height="55"></a></td>
-      <td>张益达</td>
-      <td>￥16.9<br />支付宝支付</td>
-      <td>2014年6月23日11:32:17</td>
-      <td><a href="success.html"><strong>等待付款</strong></a></td>
-      <td><a href="orderDetails.html">查看</a></td>
-     </tr>
+    <table class="vipOrder" id="orderList">
     </table><!--vipOrder/-->
     <br />
     <div class="scott"><span class="disabled"> < </span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a>...<a href="#?page=199">199</a><a href="#?page=200">200</a><a href="#?page=2"> > </a></div>
@@ -264,10 +220,9 @@
    <p>
    <a href="#">进入17官网</a>&nbsp;|&nbsp;
    <a href="index.html">商城首页</a>&nbsp;|&nbsp;
-   <a href="product.html">促销中心</a>&nbsp;|&nbsp;
    <a href="order.html">我的订单</a>&nbsp;|&nbsp;
    <a href="new.html">新闻动态</a>&nbsp;|&nbsp;
-   <a href="login.html">会员中心</a>&nbsp;|&nbsp;
+   <a href="vip.html">会员中心</a>&nbsp;|&nbsp;
    <a href="help.htmll">帮助中心</a>
    </p>
    <p>
@@ -276,5 +231,29 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script type="text/javascript">
+  var id = localStorage.getItem("user_id");
+   $.ajax({
+       url: "http://qiudaniu.top:5002/bazinga/api/order/getOrders?userId=" + id,
+       headers: {
+           'user_token': localStorage.getItem('token')
+       },
+       type: 'get',
+       success: function (res) {
+
+           if (res.code == 200){
+               var str = '';
+               if (res.data.length !== 0){
+                   data = res.data;
+                   for (var i=0 ; i<data.length; i++){
+                       str += '<tr><td>'+data[i].id+'</td><td>'+data[i].orderNo+'</td><td><a href="proinfo.html?id='+data[i].good.id+'"><img src="'+data[i].good.pic+'", width="60" height="55"></a></td><td>'+data[i].good.name+'</td><td>￥'+data[i].good.stock+'<br /></td></td> <td><a href="orderDetails.html?id='+data[i].id+'">查看</a></td></tr>'
+                   }
+                   $("#orderList").html(str);
+               }
+
+           }
+       }
+   })
+ </script>
 </body>
 </html>
