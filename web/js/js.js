@@ -179,7 +179,24 @@ $(window).scroll(function(){
 				}
             }
 		})
+        $.ajax({
+            url: "http://qiudaniu.top:5002/bazinga/api/goodType/userGetGoodTypes",
+            type: 'get',
+            success: function (res) {
+                if (res.code == 200){
+                    console.log(res);
+                    var str = "";
+                    for(var i=0; i<res.data.length; i++)
+                    {
+                        str += '<li><a href="product.html?id='+res.data[i].id+'">'+res.data[i].typeName+'</a></li>';
+                    }
+                    $(".InPorNav").html(str);
+                    $(".leftPorNav").html(str);
+                }
+            }
+        })
 	}
+
 	
 //banner	
 	/*! jQuery.kinMaxShow v1.0 | mr.kin@foxmail.com */
