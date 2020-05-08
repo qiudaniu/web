@@ -148,6 +148,13 @@ $(window).scroll(function(){
 	}
 
 	if (localStorage.getItem('token')){
+		$("#notLogin").css('display', 'none');
+		$("#login").css('display', 'block');
+		function logout() {
+			localStorage.removeItem('token');
+			localStorage.removeItem('user_id');
+			window.location.href = 'login.html';
+		}
 		$.ajax({
 			url: "http://qiudaniu.top:5002/bazinga/api/shopCart/getUserShopCarts",
 			type: 'get',
@@ -184,7 +191,6 @@ $(window).scroll(function(){
             type: 'get',
             success: function (res) {
                 if (res.code == 200){
-                    console.log(res);
                     var str = "";
                     for(var i=0; i<res.data.length; i++)
                     {
@@ -195,6 +201,10 @@ $(window).scroll(function(){
                 }
             }
         })
+	}
+
+	function search(value){
+		window.location.href = "product.html?search=" + value;
 	}
 
 	

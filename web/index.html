@@ -5,8 +5,6 @@
 <title>17商城</title>
 <link type="text/css" href="css/css.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/js.js"></script>
-<script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 $(function(){
 	$("#kinMaxShow").kinMaxShow();
@@ -32,12 +30,12 @@ $(function(){
   </div><!--top/-->
   <div class="lsg">
    <h1 class="logo"><a href="index.html"><img src="images/logo.png" width="217" height="90" /></a></h1>
-   <form action="#" method="get" class="subBox">
+   <div class="subBox">
     <div class="subBoxDiv">
      <input type="text" class="subLeft" id="searchName"/>
-     <input type="image" src="images/subimg.png" width="63" height="34" class="sub" onclick="search()"/>
+     <div onclick="search($('#searchName').val())"><input type="image" src="images/subimg.png" width="63" height="34" class="sub"/></div>
     </div><!--subBoxDiv/-->
-   </form><!--subBox/-->
+   </div><!--subBox/-->
    <div class="gouwuche">
     <div class="gouCar" style="display: none;">
      <img src="images/gouimg.png" width="19" height="20" style="position:relative;top:6px;" />&nbsp;|&nbsp;
@@ -202,22 +200,7 @@ $(function(){
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
- <script type="text/javascript">
-     if (localStorage.getItem('token')){
-         console.log(localStorage.getItem('token'));
-         $("#notLogin").css('display', 'none');
-         $("#login").css('display', 'block');
-     }
-     function logout() {
-         localStorage.removeItem('token');
-         localStorage.removeItem('user_id');
-         window.location.href = 'login.html';
-     }
-     function search() {
-         var searchName = $("#searchName").val();
-         console.log(searchName);
-     }
-
- </script>
+ <script type="text/javascript" src="js/js.js"></script>
+ <script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

@@ -4,45 +4,39 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>17商城</title>
 <link type="text/css" href="css/css.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/js.js"></script>
-<script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
 
 <body>
  <div class="mianCont">
   <div class="top">
-   <span>您好！欢迎来到17商城 请&nbsp;<a href="login.html">[登录]</a>&nbsp;<a href="reg.html">[注册]</a></span>
-   <span class="topRight">
-    <a href="vip.html">我的17</a>&nbsp;| 
-    <a href="order.html">我的订单</a>&nbsp;| 
-    <a href="login.html">会员中心</a>&nbsp;|
+   <div id="notLogin">
+    <span>您好！欢迎来到17商城 请&nbsp;<a href="login.html">[登录]</a>&nbsp;<a href="reg.html">[注册]</a></span>
+   </div>
+   <div id="login" style="display: none">
+    <span><a href="" onclick="logout()">[退出]</a></span>
+    <span class="topRight">
+    <a href="vip.html">我的17</a>&nbsp;|
+    <a href="order.html">我的订单</a>&nbsp;|
+    <a href="vip.html">会员中心</a>&nbsp;|
     <a href="contact.html">联系我们</a>
    </span>
+   </div>
   </div><!--top/-->
   <div class="lsg">
    <h1 class="logo"><a href="index.html"><img src="images/logo.png" width="217" height="90" /></a></h1>
-   <form action="#" method="get" class="subBox">
+   <div class="subBox">
     <div class="subBoxDiv">
-     <input type="text" class="subLeft" />
-     <input type="image" src="images/subimg.png" width="63" height="34" class="sub" />
-     <div class="hotWord">
-      热门搜索：
-      <a href="proinfo.html">冷饮杯</a>&nbsp;
-      <a href="proinfo.html">热饮杯</a> &nbsp;
-      <a href="proinfo.html">纸杯</a>&nbsp;
-      <a href="proinfo.html">纸巾</a>  &nbsp;
-      <a href="proinfo.html">纸巾</a> &nbsp;
-      <a href="proinfo.html">纸杯</a>&nbsp;
-     </div><!--hotWord/-->
+     <input type="text" class="subLeft" id="searchName"/>
+     <div onclick="search($('#searchName').val())"><input type="image" src="images/subimg.png" width="63" height="34" class="sub"/></div>
     </div><!--subBoxDiv/-->
-   </form><!--subBox/-->
+   </div><!--subBox/-->
    <div class="gouwuche">
-    <div class="gouCar">
+    <div class="gouCar" style="display: none;">
      <img src="images/gouimg.png" width="19" height="20" style="position:relative;top:6px;" />&nbsp;|&nbsp;
-     <strong class="red">0</strong>&nbsp;件&nbsp;|
-     <strong class="red">￥ 0.00</strong> 
-     <a href="order.html">去结算</a> <img src="images/youjian.jpg" width="5" height="8" />    
+     <strong class="red" id="num">0</strong>&nbsp;件&nbsp;|
+     <strong class="red" id="price">￥ 0.00</strong>
+     <a href="order.html">去结算</a> <img src="images/youjian.jpg" width="5" height="8" />
     </div><!--gouCar/-->
     <div class="myChunlv">
      <a href="vip.html"><img src="images/mychunlv.jpg" width="112" height="34" /></a>
@@ -73,9 +67,6 @@
    当前位置：<a href="index.html">首页</a> &gt; <a href="#" class="posCur">促销商品</a>
   </div><!--positions/-->
   <div class="cont">
-  <div class="jilu">
-    总计 <span>8</span> 个记录
-   </div><!--jilu/-->
    <div class="contLeft">
     <ul class="leftPorNav">
      <li><a href="product.html">纸杯系列</a>
@@ -208,6 +199,9 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script type="text/javascript" src="js/jquery.js"></script>
+ <script type="text/javascript" src="js/js.js"></script>
+ <script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
  <script type="text/javascript">
    id = getQueryVariable('id');
   $.ajax({
@@ -218,7 +212,6 @@
       },
       success: function (res) {
           if(res.code == 200){
-              console.log(res.data);
               var data = res.data;
               var str = '';
               for (var i=0; i<data.length; i++){
@@ -228,6 +221,23 @@
           }
       }
   })
+  if (getQueryVariable('search')){
+   $.ajax({
+    url: "http://qiudaniu.top:5002/bazinga/api/good/getGoodsByName",
+    type: 'get',
+    data: {
+     'goodName' : getQueryVariable('search')
+    },
+    success: function (res) {
+     var data = res.data;
+     var str = '';
+     for (var i=0; i<data.length; i++){
+      str += '<dl> <dt><a href="proinfo.html?id='+data[i].id+'"><img src="'+data[i].pic+'" width="132" height="129" /></a></dt><dd>'+data[i].name+'</dd><dd class="cheng">￥'+data[i].presentPrice+'<span>￥'+data[i].originalPrice+'</span></dd></dl>';
+     }
+     $('.frProList').html(str);
+    }
+   })
+  }
  </script>
 </body>
 </html>

@@ -5,44 +5,39 @@
 <title>17商城</title>
 <link type="text/css" href="css/css.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/js.js"></script>
 <script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
  <div class="mianCont">
   <div class="top">
-   <span>您好！欢迎来到17商城 请&nbsp;<a href="login.html">[登录]</a>&nbsp;<a href="reg.html">[注册]</a></span>
-   <span class="topRight">
-    <a href="vip.html">我的17</a>&nbsp;| 
-    <a href="order.html">我的订单</a>&nbsp;| 
+   <div id="notLogin">
+    <span>您好！欢迎来到17商城 请&nbsp;<a href="login.html">[登录]</a>&nbsp;<a href="reg.html">[注册]</a></span>
+   </div>
+   <div id="login" style="display: none">
+    <span><a href="" onclick="logout()">[退出]</a></span>
+    <span class="topRight">
+    <a href="vip.html">我的17</a>&nbsp;|
+    <a href="order.html">我的订单</a>&nbsp;|
     <a href="vip.html">会员中心</a>&nbsp;|
     <a href="contact.html">联系我们</a>
    </span>
+   </div>
   </div><!--top/-->
   <div class="lsg">
    <h1 class="logo"><a href="index.html"><img src="images/logo.png" width="217" height="90" /></a></h1>
-   <form action="#" method="get" class="subBox">
+   <div class="subBox">
     <div class="subBoxDiv">
-     <input type="text" class="subLeft" />
-     <input type="image" src="images/subimg.png" width="63" height="34" class="sub" />
-     <div class="hotWord">
-      热门搜索：
-      <a href="proinfo.html">冷饮杯</a>&nbsp;
-      <a href="proinfo.html">热饮杯</a> &nbsp;
-      <a href="proinfo.html">纸杯</a>&nbsp;
-      <a href="proinfo.html">纸巾</a>  &nbsp;
-      <a href="proinfo.html">纸巾</a> &nbsp;
-      <a href="proinfo.html">纸杯</a>&nbsp;
-     </div><!--hotWord/-->
+     <input type="text" class="subLeft" id="searchName"/>
+     <div onclick="search($('#searchName').val())"><input type="image" src="images/subimg.png" width="63" height="34" class="sub"/></div>
     </div><!--subBoxDiv/-->
-   </form><!--subBox/-->
+   </div><!--subBox/-->
    <div class="gouwuche">
-    <div class="gouCar">
+    <div class="gouCar" style="display: none;">
      <img src="images/gouimg.png" width="19" height="20" style="position:relative;top:6px;" />&nbsp;|&nbsp;
-     <strong class="red">0</strong>&nbsp;件&nbsp;|
-     <strong class="red">￥ 0.00</strong> 
-     <a href="order.html">去结算</a> <img src="images/youjian.jpg" width="5" height="8" />    
+     <strong class="red" id="num">0</strong>&nbsp;件&nbsp;|
+     <strong class="red" id="price">￥ 0.00</strong>
+     <a href="order.html">去结算</a> <img src="images/youjian.jpg" width="5" height="8" />
     </div><!--gouCar/-->
     <div class="myChunlv">
      <a href="vip.html"><img src="images/mychunlv.jpg" width="112" height="34" /></a>
@@ -153,11 +148,11 @@
     </tr>
    </table><!--orderList/-->
    <div class="zongji">
-    总计(不含运费)：<strong class="red">￥<span></span></strong>
+    总计(不含运费)：<strong class="red">￥<span id="p"></span></strong>
    </div><!--zongji/-->
    <div class="jiesuan">
     <a href="product.html" class="jie_1">继续购物&gt;&gt;</a>
-    <a href="order2.html" class="jie_2">立即结算&gt;&gt;</a>
+    <a onclick="jie_2()" class="jie_2">立即结算&gt;&gt;</a>
     <div class="clears"></div>
    </div><!--jiesuan/-->
    <div class="clears"></div>
@@ -208,6 +203,9 @@
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
+ <script type="text/javascript" src="js/jquery.js"></script>
+ <script type="text/javascript" src="js/js.js"></script>
+ <script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
  <script type="text/javascript">
      $.ajax({
          url: "http://qiudaniu.top:5002/bazinga/api/shopCart/getUserShopCarts",
@@ -222,14 +220,18 @@
              if (res.code == 200){
                  var str = '<tr><th width="20"></th><th width="430">商品</th><th width="135">单价</th><th width="135">数量</th><th width="135">总金额</th><th>操作</th></tr>';
                  var data = res.data;
-                 console.log(data);
                  for (var i=0; i<data.length; i++){
-                     str += '<tr id="'+data[i].good.id+'"><td><input type="checkbox" /></td><td><dl><dt><a href="proinfo.html?id='+data[i].good.id+'"><img src="'+data[i].good.pic+'" width="85" height="85" /></a></dt>'+
-                         '<dd>'+data[i].good.name+'</dd><div class="clears"></div></dl></td><td><strong class="red">￥<span id="price_'+data[i].good.id+'">'+data[i].good.presentPrice+'</span></strong></td> <td><div class="jia_jian"><input type="text" class="shuliang" onchange="allPrice(this.value, '+data[i].good.id+')" value="'+data[i].amount+'" /></div></td>'+
-                         '<td><strong class="red">￥<span id="allPrice_'+data[i].good.id+'">'+data[i].amount*data[i].good.presentPrice+'</span></strong></td><td><a href="#" onclick="deleteGoods('+data[i].good.id+')" class="green">删除</a></td></tr><tr>';
+                     str += '<tr id="'+data[i].id+'"><td style="display: none" id="goodId_'+data[i].id+'">'+data[i].good.id+'</td><td><input onclick="changeAllPrice()" type="checkbox" name="car_id" checked value="'+data[i].id+'" /></td><td><dl><dt><a href="proinfo.html?id='+data[i].good.id+'"><img src="'+data[i].good.pic+'" width="85" height="85" /></a></dt>'+
+                         '<dd>'+data[i].good.name+'</dd><div class="clears"></div></dl></td><td><strong class="red">￥<span id="price_'+data[i].id+'">'+data[i].good.presentPrice+'</span></strong></td> <td><div class="jia_jian"><input type="text" class="shuliang" id="shuliang_'+data[i].id+'" onchange="allPrice(this.value, '+data[i].good.id+')" value="'+data[i].amount+'" /></div></td>'+
+                         '<td><strong class="red">￥<span id="allPrice_'+data[i].id+'">'+data[i].amount*data[i].good.presentPrice+'</span></strong></td><td><a href="#" onclick="deleteGoods('+data[i].id+')" class="green">删除</a></td></tr><tr>';
                  }
                  $(".orderList").html(str);
              }
+             var p = 0;
+          $('input[name="car_id"]:checked').each(function(){//遍历每一个名字为interest的复选框，其中选中的执行函数
+           p += parseInt($("#allPrice_" + $(this).val()).text())
+          });
+          $("#p").text(p);
          }
      });
      function deleteGoods(id) {
@@ -244,7 +246,7 @@
              },
              success: function(res){
                  if (res.code == 200){
-                     alert('删除成功');
+                     alert(res.msg);
                      window.location.href = 'order.html';
                  }
              }
@@ -255,6 +257,40 @@
          var price = $("#price_" + id).text();
          var allPrice = value* price;
          $("#allPrice_"+id).text(allPrice);
+     }
+
+     function changeAllPrice() {
+      var p = 0;
+      $('input[name="car_id"]:checked').each(function(){//遍历每一个名字为interest的复选框，其中选中的执行函数
+       p += parseInt($("#allPrice_" + $(this).val()).text())
+      });
+      $("#p").text(p);
+     }
+
+     function jie_2() {
+      $('input[name="car_id"]:checked').each(function(){//遍历每一个名字为interest的复选框，其中选中的执行函数
+       var amount = $("#shuliang_" + $(this).val()).val();
+       var good_id = $("#goodId_" + $(this).val()).text();
+       $.ajax({
+        url: "http://qiudaniu.top:5002/bazinga/api/order/createOrder",
+        type: "post",
+        data: JSON.stringify({
+          'amount' : amount,
+          'goodId' : good_id,
+          'userId' : localStorage.getItem('user_id')
+        }),
+        contentType: 'application/json',
+        headers: {
+         'user_token' : localStorage.getItem('token')
+        },
+        success: function (res) {
+          if (res.code == 200){
+           window.location.href = "success.html";
+          }
+        }
+       })
+      });
+
      }
  </script>
 </body>
