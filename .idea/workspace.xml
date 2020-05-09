@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e97691f-6d59-4293-8064-bc4ce926b81d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/web/orders.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/help.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/js.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/message.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/message.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/order2.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/order2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/orderDetails.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/orderDetails.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/product.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/proinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/proinfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/success.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/vip.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/vip.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/vipAdress.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/vipAdress.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/vipExit.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/vipExit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/vipMy.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/vipMy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/vipOrder.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/vipOrder.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/vipPwd.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/vipPwd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/vipTuihuo.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/vipTuihuo.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +60,7 @@
       <workItem from="1588596479629" duration="24484000" />
       <workItem from="1588903814196" duration="20800000" />
       <workItem from="1588930054719" duration="489000" />
-      <workItem from="1588930640278" duration="8496000" />
+      <workItem from="1588930640278" duration="11093000" />
     </task>
     <servers />
   </component>
