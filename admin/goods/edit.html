@@ -248,7 +248,7 @@
         }
     })
     function userEdit(){
-        var formData = new FormData();
+        /*var formData = new FormData();
         formData.append("name", $("#name").val());
         formData.append("introduction", $("#introduction").val());
         formData.append("orginalPrice", $("#orginalPrice").val());
@@ -256,7 +256,7 @@
         formData.append("presentPrice", $("#presentPrice").val());
         formData.append("sold", $("#sold").val());
         formData.append("stock", $("#stock").val());
-        formData.append("type", $("#type").val());
+        formData.append("type", $("#type").val());*/
         $.ajax({
             'type' : 'post',
             'url' : 'http://qiudaniu.top:5002/bazinga/api/user/updateUser',
@@ -264,7 +264,16 @@
             'headers' : {
                 'admin_token': localStorage.getItem('admin-token'),
             },
-            'data' : formData,
+            'data' : JSON.stringify({
+                name: $("#name").val(),
+                introduction: $("#introduction").val(),
+                orginalPrice: $("#orginalPrice").val(),
+                goodImage: document.getElementById("pic").files[0],
+                presentPrice: $("#presentPrice").val(),
+                sold: $("#sold").val(),
+                stock: $("#stock").val(),
+                type: $("#type").val()
+            }),
             'dataType' : 'json',
             success: function(data){
                 if (data.code == 200) {

@@ -85,7 +85,7 @@
                 <div id="orders" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="../orders/index.html" class="sidebar-link text-muted pl-lg-5">订单列表</a></li>
-                        <li class="sidebar-list-item"><a href="../orders/create.html" class="sidebar-link text-muted pl-lg-5">新增订单</a></li>
+                        <!--<li class="sidebar-list-item"><a href="../orders/create.html" class="sidebar-link text-muted pl-lg-5">新增订单</a></li>-->
                     </ul>
                 </div>
             </li>
@@ -240,7 +240,7 @@
                         // console.log(data.data[i])
                         datas = data.data[i];
                         id = i+1;
-                        str += '<tr><td>' + id + '</td><td>'+ datas.orderNo +'</td><td>'+datas.user.username+'</td><td>'+datas.good.name+'</td><td>'+datas.amount+'</td><td><a href="javascript:void(0)" onclick="showEditModal('+datas.id+')">修改</a><a href="javascript:void(0)" onclick="showDeleteModal('+datas.id+')">删除</a></td></tr>'
+                        str += '<tr><td>' + id + '</td><td>'+ datas.orderNo +'</td><td>'+datas.user.username+'</td><td>'+datas.good.name+'</td><td>'+datas.amount+'</td><td></tr>'
                     }
                     $("tbody").html(str);
                 }

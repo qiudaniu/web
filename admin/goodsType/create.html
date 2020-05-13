@@ -133,51 +133,9 @@
                     <div class="card-body">
                         <form class="form-horizontal" id="user-create" method="post" enctype="multipart/form-data">
                             <div class="form-group row">
-                                <label for="name" class="col-md-2 form-control-label"><span style="font-size: 20px">商品名</span></label>
+                                <label for="typeName" class="col-md-2 form-control-label"><span style="font-size: 20px">商品类型名</span></label>
                                 <div class="col-md-9">
-                                    <input id="name" type="text" name="name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="orginalPrice" class="col-md-2 form-control-label"><span style="font-size: 20px">原价</span></label>
-                                <div class="col-md-9">
-                                    <input id="orginalPrice" type="text" name="orginalPrice" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="presentPrice" class="col-md-2 form-control-label"><span style="font-size: 20px">现价</span></label>
-                                <div class="col-md-9">
-                                    <input id="presentPrice" type="text" name="presentPrice" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="type" class="col-md-2 form-control-label"><span style="font-size: 20px">类型</span></label>
-                                <div class="col-md-9">
-                                    <input id="type" type="text" name="type" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="pic" class="col-md-2 form-control-label"><span style="font-size: 20px">商品图片</span></label>
-                                <div class="col-md-9">
-                                    <input id="pic" type="file" name="pic" accept="image/*">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="introduction" class="col-md-2 form-control-label"><span style="font-size: 20px">简介</span></label>
-                                <div class="col-md-9">
-                                    <textarea rows="3" cols="60" name="introduction" id="introduction"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="stock" class="col-md-2 form-control-label"><span style="font-size: 20px">库存</span></label>
-                                <div class="col-md-9">
-                                    <input id="stock" type="text" name="stokc" class="form-control" value="">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="sold" class="col-md-2 form-control-label"><span style="font-size: 20px">售出数量</span></label>
-                                <div class="col-md-9">
-                                    <input id="sold" type="text" name="sold" class="form-control" value="">
+                                    <input id="typeName" type="text" name="typeName" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -204,22 +162,13 @@
 <script src="../../js/front.js"></script>
 <script type="text/javascript">
     function userCreate(){
-        var formData = new FormData();
-        formData.append("name", $("#name").val());
-        formData.append("introduction", $("#introduction").val());
-        formData.append("orginalPrice", $("#orginalPrice").val());
-        formData.append("goodImage",  document.getElementById("pic").files[0]);
-        formData.append("presentPrice", $("#presentPrice").val());
-        formData.append("sold", $("#sold").val());
-        formData.append("stock", $("#stock").val());
-        formData.append("type", $("#type").val());
-        console.log(formData.get('goodImage'))
-
         $.ajax({
             'type' : 'post',
-            'url' : 'http://qiudaniu.top:5002/bazinga/api/good/createGood',
+            'url' : 'http://qiudaniu.top:5002/bazinga/api/goodType/createGoodType',
             contentType : false,
-            'data' : formData,
+            'data' : JSON.stringify({
+                goodTypeDto: $("#typeName").val()
+            }),
             'headers': {
                 'admin_token': localStorage.getItem('admin-token')
             },
