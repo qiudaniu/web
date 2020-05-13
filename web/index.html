@@ -5,8 +5,6 @@
 <title>17商城</title>
 <link type="text/css" href="css/css.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/js.js"></script>
-<script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 $(function(){
 	$("#kinMaxShow").kinMaxShow();
@@ -24,7 +22,7 @@ $(function(){
     <span><a href="" onclick="logout()">[退出]</a></span>
     <span class="topRight">
     <a href="vip.html">我的17</a>&nbsp;|
-    <a href="order.html">我的订单</a>&nbsp;|
+    <a href="orders.html">我的订单</a>&nbsp;|
     <a href="vip.html">会员中心</a>&nbsp;|
     <a href="contact.html">联系我们</a>
    </span>
@@ -32,12 +30,12 @@ $(function(){
   </div><!--top/-->
   <div class="lsg">
    <h1 class="logo"><a href="index.html"><img src="images/logo.png" width="217" height="90" /></a></h1>
-   <form action="#" method="get" class="subBox">
+   <div class="subBox">
     <div class="subBoxDiv">
      <input type="text" class="subLeft" id="searchName"/>
-     <input type="image" src="images/subimg.png" width="63" height="34" class="sub" onclick="search()"/>
+     <div onclick="search($('#searchName').val())"><input type="image" src="images/subimg.png" width="63" height="34" class="sub"/></div>
     </div><!--subBoxDiv/-->
-   </form><!--subBox/-->
+   </div><!--subBox/-->
    <div class="gouwuche">
     <div class="gouCar" style="display: none;">
      <img src="images/gouimg.png" width="19" height="20" style="position:relative;top:6px;" />&nbsp;|&nbsp;
@@ -95,59 +93,10 @@ $(function(){
      <div class="clears"></div>
     </ul><!--rdList/-->
     <div class="rdProBox">
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro1.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro2.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro3.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro4.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro5.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
+
      <div class="clears"></div>
     </div><!--rdPro/-->
     <div class="rdProBox">
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro4.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro5.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro3.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro2.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
-     <dl>
-      <dt><a href="proinfo.html"><img src="images/rdPro1.jpg" width="132" height="129" /></a></dt>
-      <dd>妙洁 一次性纸杯 8盎司228ml 100只/袋 20袋/箱</dd>
-      <dd class="cheng">￥19.80/袋</dd>
-     </dl>
      <div class="clears"></div>
     </div><!--rdPro/-->
    </div><!--rdLeft/-->
@@ -202,22 +151,23 @@ $(function(){
   </div><!--footer/-->
  </div><!--mianCont/-->
  <a href="#" class="backTop">&nbsp;</a>
- <script type="text/javascript">
-     if (localStorage.getItem('token')){
-         console.log(localStorage.getItem('token'));
-         $("#notLogin").css('display', 'none');
-         $("#login").css('display', 'block');
+ <script type="text/javascript" src="js/js.js"></script>
+ <script src="js/wb.js" type="text/javascript" charset="utf-8"></script>
+ <script>
+  $.ajax({
+   url: "http://qiudaniu.top:5002/bazinga/api/good/getRecGoods",
+   type: 'get',
+   success: function (res) {
+     if (res.code == 200){
+      var str = '';
+      var data = res.data;
+      for(var i=0; i<data.length; i++){
+       str += '<dl><dt><a href="proinfo.html?id='+data[i].id+'"><img src="'+data[i].pic+'" width="132" height="129" /></a></dt><dd>'+data[i].name+'</dd><dd class="cheng">￥'+data[i].presentPrice+'</dd></dl>';
+      }
+      $('.rdProBox').html(str)
      }
-     function logout() {
-         localStorage.removeItem('token');
-         localStorage.removeItem('user_id');
-         window.location.href = 'login.html';
-     }
-     function search() {
-         var searchName = $("#searchName").val();
-         console.log(searchName);
-     }
-
+   }
+  })
  </script>
 </body>
 </html>

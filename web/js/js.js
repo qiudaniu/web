@@ -148,6 +148,13 @@ $(window).scroll(function(){
 	}
 
 	if (localStorage.getItem('token')){
+		$("#notLogin").css('display', 'none');
+		$("#login").css('display', 'block');
+		function logout() {
+			localStorage.removeItem('token');
+			localStorage.removeItem('user_id');
+			window.location.href = 'login.html';
+		}
 		$.ajax({
 			url: "http://qiudaniu.top:5002/bazinga/api/shopCart/getUserShopCarts",
 			type: 'get',
@@ -179,22 +186,25 @@ $(window).scroll(function(){
 				}
             }
 		})
-        $.ajax({
-            url: "http://qiudaniu.top:5002/bazinga/api/goodType/userGetGoodTypes",
-            type: 'get',
-            success: function (res) {
-                if (res.code == 200){
-                    console.log(res);
-                    var str = "";
-                    for(var i=0; i<res.data.length; i++)
-                    {
-                        str += '<li><a href="product.html?id='+res.data[i].id+'">'+res.data[i].typeName+'</a></li>';
-                    }
-                    $(".InPorNav").html(str);
-                    $(".leftPorNav").html(str);
-                }
-            }
-        })
+	}
+$.ajax({
+	url: "http://qiudaniu.top:5002/bazinga/api/goodType/userGetGoodTypes",
+	type: 'get',
+	success: function (res) {
+		if (res.code == 200){
+			var str = "";
+			for(var i=0; i<res.data.length; i++)
+			{
+				str += '<li><a href="product.html?id='+res.data[i].id+'">'+res.data[i].typeName+'</a></li>';
+			}
+			$(".InPorNav").html(str);
+			$(".leftPorNav").html(str);
+		}
+	}
+})
+
+	function search(value){
+		window.location.href = "product.html?search=" + value;
 	}
 
 	
