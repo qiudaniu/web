@@ -85,7 +85,6 @@
                 <div id="orders" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="../orders/index.html" class="sidebar-link text-muted pl-lg-5">订单列表</a></li>
-                        <li class="sidebar-list-item"><a href="../orders/create.html" class="sidebar-link text-muted pl-lg-5">新增订单</a></li>
                     </ul>
                 </div>
             </li>
@@ -109,7 +108,6 @@
                 <div id="operation" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="../operations/index.html" class="sidebar-link text-muted pl-lg-5">操作列表</a></li>
-                        <li class="sidebar-list-item"><a href="../operations/create.html" class="sidebar-link text-muted pl-lg-5">新增操作</a></li>
                     </ul>
                 </div>
             </li>
@@ -165,16 +163,12 @@
         $.ajax({
             'type' : 'post',
             'url' : 'http://qiudaniu.top:5002/bazinga/api/goodType/createGoodType',
-            contentType : false,
-            'data' : JSON.stringify({
-                goodTypeDto: $("#typeName").val()
-            }),
+            'data' : {
+                typeName: $("#typeName").val()
+            },
             'headers': {
                 'admin_token': localStorage.getItem('admin-token')
             },
-            'dataType' : 'json',
-            processData:false,
-
             success: function (data) {
                 if (data.code === 200){
                     window.location.href='index.html';

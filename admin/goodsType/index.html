@@ -85,7 +85,6 @@
                 <div id="orders" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="../orders/index.html" class="sidebar-link text-muted pl-lg-5">订单列表</a></li>
-                        <li class="sidebar-list-item"><a href="../orders/create.html" class="sidebar-link text-muted pl-lg-5">新增订单</a></li>
                     </ul>
                 </div>
             </li>
@@ -109,7 +108,6 @@
                 <div id="operation" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="../operations/index.html" class="sidebar-link text-muted pl-lg-5">操作列表</a></li>
-                        <li class="sidebar-list-item"><a href="../operations/create.html" class="sidebar-link text-muted pl-lg-5">新增操作</a></li>
                     </ul>
                 </div>
             </li>
@@ -191,12 +189,14 @@
 
     // $("#user-list").hide();
     $("#deleteHaulBtn").click(function() {
-        user_id = $("#deleteHaulId").val();
+        id = $("#deleteHaulId").val();
         $.ajax({
-            url:'',
+            url:'http://qiudaniu.top:5002/bazinga/api/goodType/deleteGoodType',
             type:"post",
-            data:{'_method':"DELETE", 'id':line_id, '_token':'{{csrf_token()}}'},
-            dataType:"json",
+            data:{'goodTypeId':id},
+            headers: {
+                admin_token: localStorage.getItem('admin-token')
+            },
             success:function(e){
                 if(e.code == 200){
                     window.location.reload()

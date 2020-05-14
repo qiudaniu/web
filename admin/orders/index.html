@@ -109,7 +109,6 @@
                 <div id="operation" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="../operations/index.html" class="sidebar-link text-muted pl-lg-5">操作列表</a></li>
-                        <li class="sidebar-list-item"><a href="../operations/create.html" class="sidebar-link text-muted pl-lg-5">新增操作</a></li>
                     </ul>
                 </div>
             </li>
@@ -139,7 +138,10 @@
                                 <th>用户名</th>
                                 <th>商品名</th>
                                 <th>数量</th>
-                                <th>操作</th>
+                                <th>快递商</th>
+                                <th>运费</th>
+                                <th>商品金额</th>
+                                <th>总金额</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -240,7 +242,7 @@
                         // console.log(data.data[i])
                         datas = data.data[i];
                         id = i+1;
-                        str += '<tr><td>' + id + '</td><td>'+ datas.orderNo +'</td><td>'+datas.user.username+'</td><td>'+datas.good.name+'</td><td>'+datas.amount+'</td><td></tr>'
+                        str += '<tr><td>' + id + '</td><td>'+ datas.orderNo +'</td><td>'+datas.user.username+'</td><td>'+datas.good.name+'</td><td>'+datas.amount+'</td><td>'+datas.express.expressName+'</td><td>'+datas.expressFee+'</td><td>'+datas.goodAmount+'</td><td>'+datas.totalAmount+'</td></tr>'
                     }
                     $("tbody").html(str);
                 }
