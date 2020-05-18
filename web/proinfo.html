@@ -233,8 +233,8 @@
       数量： <input type="text" id="buyNum" value="1" />
      </div><!--shuliang2/-->
      <div class="gc">
-      <a href="order.html"><img src="images/goumai.png" width="117"  height="36" /></a>
-      <a href="#" onclick="joinCar()"><img src="images/shoucang.png" width="117" height="36"/></a>
+      <a href="" onclick="jie_2()"><img src="images/goumai.png" width="117"  height="36" /></a>
+      <a href="" onclick="joinCar()"><img src="images/shoucang.png" width="117" height="36"/></a>
      </div><!--gc/-->
     </div><!--proRight/-->
     <div class="clears"></div>
@@ -368,6 +368,32 @@
      }
     }
    })
+  }
+  function jie_2() {
+    var amount = $("#buyNum").val();
+    var good_id = id;
+    $.ajax({
+     url: "http://qiudaniu.top:5002/bazinga/api/order/createOrder",
+     type: "post",
+     data: JSON.stringify({
+      'amount' : amount,
+      'goodId' : good_id,
+      'userId' : localStorage.getItem('user_id')
+     }),
+     contentType: 'application/json',
+     headers: {
+      'user_token' : localStorage.getItem('token')
+     },
+     success: function (res) {
+        console.log(res)
+      if (res.code == 200){
+       window.location.href = "success.html";
+      }
+     },
+     fail: function (res){
+      console.log(res)
+     }
+    })
   }
  </script>
 </body>
